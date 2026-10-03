@@ -7,19 +7,35 @@ import { fetchCustomers } from "@/features/customers/api/customer-api";
 const mockCustomerList = [
     {
         id: "C-1001",
-        name: "Aden Hart",
-        email: "aden.hart@example.com",
-        phone: "+1 (415) 555-0101",
+        name: "Vijay Bhaskar",
+        email: "vijay.bhaskara@example.com",
+        phone: "+91 (970) 556-1434",
         status: "Active",
         openRequestCount: 2,
     },
     {
         id: "C-1002",
-        name: "Alicia Gomez",
-        email: "alicia.gomez@example.com",
-        phone: "+1 (415) 555-0102",
+        name: "Srinivas Gandi",
+        email: "srinivas.gandi@example.com",
+        phone: "+91 (987) 654-3210",
         status: "Pending",
         openRequestCount: 1,
+    },
+    {
+        id: "C-1003",
+        name: "Brett Lee",
+        email: "brett.lee@example.com",
+        phone: "+91 (987) 654-3211",
+        status: "Blocked",
+        openRequestCount: 3,
+    },
+    {
+        id: "C-1004",
+        name: "Priya Rathod",
+        email: "priya.rathod@example.com",
+        phone: "+91 (987) 654-3212",
+        status: "Active",
+        openRequestCount: 0,
     },
 ];
 
@@ -32,6 +48,15 @@ const mockRequests = [
         priority: "High",
         status: "In Progress",
         createdAt: "2026-09-28T09:15:00.000Z",
+    },
+    {
+        id: "SR-102",
+        customerId: "C-1001",
+        subject: "Billing discrepancy for June invoice",
+        description: "Customer reports an extra charge after a plan downgrade request. Need audit of invoice adjustments.",
+        priority: "Medium",
+        status: "Open",
+        createdAt: "2026-09-30T17:20:00.000Z",
     },
 ];
 
@@ -90,14 +115,14 @@ describe("CustomerConsole", () => {
 
         render(<CustomerConsole />);
 
-        expect(await screen.findByRole("heading", { name: "Aden Hart" })).toBeInTheDocument();
+        expect(await screen.findByRole("heading", { name: "Vijay Bhaskar" })).toBeInTheDocument();
 
-        await user.type(screen.getByLabelText(/search by customer name or id/i), "Aden");
+        await user.type(screen.getByLabelText(/search by customer name or id/i), "Vijay");
 
         await waitFor(() => {
-            expect(screen.queryByRole("button", { name: /Alicia Gomez/ })).not.toBeInTheDocument();
+            expect(screen.queryByRole("button", { name: /Srinivas Gandi/ })).not.toBeInTheDocument();
         });
 
-        expect(screen.getByRole("heading", { name: "Aden Hart" })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: "Vijay Bhaskar" })).toBeInTheDocument();
     });
 });
